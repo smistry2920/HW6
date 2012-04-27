@@ -1,0 +1,31 @@
+Process Class
+
+This class ecapsulates the resources created when spawning a Unix/Linux process with the fork() system call.  It uses the RAII idiom to make usage easier by freeing any 
+resources upone object destruction.
+
+Screencasts of this project are available at
+http://youtu.be/lTB3kiltIuw
+http://youtu.be/L17bVZMxbw0
+
+Discussion:
+
+1)Is this a good use of Object Oriented design? Why or why not?
+-->Yes, because the class is pretty much self-contained and it can be used over and over for different things.
+
+There are different possible desired behaviors for what happens when the Process object goes out of scope:
+
+2)The Process object waits until the child process has finished on its own (this has the effect of stalling the main program at the point at which the process object goes out of scope).
+
+		The Process object waits for a specified time period for the child to finish on its own and then sends a TERM or KILL signal.
+
+		The Process object sends a TERM or KILL signal imediately if the child process has not already finished at the time the Process destructor is called (when the object goes out of scope)
+
+
+How might you modify your Process class to allow the programmer an easy way to use different destruction policies?
+
+-->An "easy" way to do this would be to create a separate function that the destructor calls. This separate function would have a switch of some sort that utilizes different destruction policies. For example, you could have a switch that reads a character array that runs different destructor functions based on what the character array states.
+
+3)How might you handle the case when a child process terminates before the parent process destroies it? I.e. how might the parent be signaled when a child terminates, and then read in any data it has written to its output.
+-->A way for this to work would be to create a signal that is sent between the child and parent process. If the child process is prematurely terminated, the signal would be cutoff and the parent would know the child process was terminated.
+
+
