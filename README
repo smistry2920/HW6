@@ -10,19 +10,9 @@ http://youtu.be/L17bVZMxbw0
 Discussion:
 
 1)Is this a good use of Object Oriented design? Why or why not?
--->Yes, because the class is pretty much self-contained and it can be used over and over for different things.
+-->Yes, an Object Oriented class should do a certain thing and keep from expanding beyond that. This class is pretty much self-contained and it can be used over and over for different things which means it is a good use of Object Oriented design.
 
-There are different possible desired behaviors for what happens when the Process object goes out of scope:
-
-2)The Process object waits until the child process has finished on its own (this has the effect of stalling the main program at the point at which the process object goes out of scope).
-
-		The Process object waits for a specified time period for the child to finish on its own and then sends a TERM or KILL signal.
-
-		The Process object sends a TERM or KILL signal imediately if the child process has not already finished at the time the Process destructor is called (when the object goes out of scope)
-
-
-How might you modify your Process class to allow the programmer an easy way to use different destruction policies?
-
+2)How might you modify your Process class to allow the programmer an easy way to use different destruction policies?
 -->An "easy" way to do this would be to create a separate function that the destructor calls. This separate function would have a switch of some sort that utilizes different destruction policies. For example, you could have a switch that reads a character array that runs different destructor functions based on what the character array states.
 
 3)How might you handle the case when a child process terminates before the parent process destroies it? I.e. how might the parent be signaled when a child terminates, and then read in any data it has written to its output.
